@@ -78,7 +78,9 @@ function borrarTweet(e){
         let tweet_content = e.target.parentElement.textContent;
         //Se borra la lista, ya que esta es el padre de 'borrar-tweet'
         e.target.parentElement.remove();
-        
+        //Se llama a la función que se encargará de buscar y borrar los tweets de LocalStorage
+        BorrarTtweetLocalStorage(tweet_content); //Le pasamos el valor(string) que contiene la lista donde el usuaio da clic en X
+
         alert(`El tweet: ${tweet_content.substring(0, tweet_content.length - 1)} se eliminará`);
     }
 }
@@ -106,4 +108,21 @@ function obtenerTweetsLocalStorage() {
     }
 
     return local_tweet; //Se retorna valor de esta función como array
+}
+
+//Función que Borra los tweets de Local Storage 
+function BorrarTtweetLocalStorage(tweet){
+    let tweets, tweetBorrar;
+    //Igualamos variable a el tweet sobre el usuario presiona X y le dejamos todos los caracteres menos el ultimo (la X)
+    tweetBorrar = tweet.substring(0, tweet.length - 1);
+    //Se iguala la variable tweets a el arreglo que regresa la función, es decir, a lo que se encuentra en LocalStorge
+    tweets = obtenerTweetsLocalStorage();
+    //Se realiza un forEach para el arreglo que se creo en el paso anterior y así se compará que si el tweet borrado es igual al tweet que el forEach esta recorriendo entonces se prosigue con eliminar ese tweet del array(tweets)
+    tweets.forEach(function(tweet, tweetIndice){
+        if (tweetBorrar === tweet){
+            tweets.splice(tweetIndice, 1); //Splice borra los elementos del array, el primer valor dice apartir de donde y el segundo dice hasta donde, en este caso solo ponemos 1 para solo borrar 1.
+        }
+    } );
+
+    localStorage.setItem('tweets', JSON.stringify(tweets)); //Colocamos nuevamente todo en localStorage
 }
