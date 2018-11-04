@@ -23,7 +23,7 @@
     En el método  'tipo' es necesario el uso de la propiedad saldo y para poder hacer uso de ella se 
     coloca el nombre del objeto (cliente) seguido de un punto, de esta forma se tiene acceso a todas las 
     propiedades dentro del objeto y asi podemos poner (despues del punto) la propiedad saldo para que sea leída
-    correctamente. Sin embargo la palabra cliente se puede omitir en en vez de ella usar this*/
+    correctamente. Sin embargo la palabra cliente se puede omitir y en en vez de ella usar this*/
 
 /*---------------------------------------------------------------------------------------------------------*/
 
@@ -61,11 +61,11 @@
     console.log(persona1); /*
     Imprime:
         Cliente {nombre "Juan", saldo: 1200}
-    Donde Cliente es el nombre de nuestro constructor.*/
+    Donde Cliente es el nombre de nuestro constructor(clase).*/
 
     /*En el método alternativo se usó una función con dos parametros, los cuales después se convierten en propiedades al hacer uso de
-    la palabra this, cuando declaramos las propiedades la función pasa a ser constructor(objeto) pero sigue conservando sus parametros, razón por la cual
-    las propiedades declaradas dentro de ella se igualan a los parametros y así poder hacer uso de ellos cuando cada vez que se cree un objeto*/
+    la palabra this, cuando declaramos las propiedades la función pasa a ser constructor (clase, es decir, una base o plantilla para construir objetos) pero sigue conservando sus parametros, razón por la cual
+    las propiedades declaradas dentro de ella se igualan a los parametros y así poder hacer uso de ellos cada vez que se cree un objeto*/
 
     //Método fácil (normal)
     const Client = {
