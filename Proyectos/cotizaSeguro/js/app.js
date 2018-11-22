@@ -76,6 +76,43 @@ UI.prototype.showMessage = function (mensaje, tipo) {
     }, 3000)
 }
 
+//Prototype used to show the final result
+UI.prototype.insuranceResult = function(seguro, total){
+    //Find parent element where the info insurance is going to be set
+    const resultado = document.getElementById('resultado');
+    //Variable to save the differents types of insurance(Americano, asiatico, europeo)
+    let marca;
+    switch(seguro.marca){
+        case '1':
+            marca = 'Americano';
+            break;
+        case '2':
+            marca = 'Asiatico';
+            break;
+        case '3':
+            marca = 'Europeo';
+            break;
+    }
+    //Element's creation where the info is going to be written
+    const div = document.createElement('div');
+    div.innerHTML = `
+        <p class="header">Resumen:</p>
+        <p>Marca: ${marca}</p>
+        <p>Año: ${seguro.anio}</p>
+        <p>Tipo: ${seguro.tipo}</p>
+        <p>Total: ${total}</p>
+    `;
+    //Appear the spinner load
+    const spinnerLoad = document.querySelector('#cargando img');
+    spinnerLoad.style.display = 'block';
+    //Hide the spinner load and showing the result
+    setTimeout(function(){
+        spinnerLoad.style.display = 'none';
+        //Insert element
+        resultado.appendChild(div);
+    }, 3000)
+}
+
 //Create <option> tags in <select>
 const max = new Date().getFullYear();
 const min = max - 20;
@@ -107,9 +144,19 @@ form.addEventListener('submit', function(e){
     if(marcaValue === '' || anioValue === '' || typeInsurance === ''){
         interfaz.showMessage('Error, faltan datos por completar, favor de volver a intentar', 'error');
     } else {
+        //Eliminate the div where the info result is written in order to insert the next result
+        const divResult = document.querySelector('#resultado div');
+        if(divResult !== null){
+            divResult.remove();
+        }
+        //Create an object with the info about the insurance
         const seguro = new Seguro(marcaValue, anioValue, typeInsurance);
-
-        const cantidad = seguro.cotizarSeguro()
+        //Get the total insurance price
+        const cantidad = seguro.cotizarSeguro();
+        //Get parameters values for insuranceResult(prototype)
+        interfaz.insuranceResult(seguro, cantidad);
+        //Show message about cotization loading 
+        interfaz.showMessage('Cotizando....', 'correcto');
     }
     
 });
