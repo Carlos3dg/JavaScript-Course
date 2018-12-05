@@ -15,7 +15,7 @@ class Budget {
     }
 
     //Method to subtract the budget
-    availableBudget(cantidad) {
+    budgetSubtract(cantidad) {
         return this.restante -= Number(cantidad);
     }
 }
@@ -51,6 +51,49 @@ class UI {
             form.reset();
         }, 3000)
     }
+
+    //Method to add every spend item and its cost in a list
+    userSpendList(nameSpend, valueSpend) {
+        //Select the ul container of the list
+        const listContainer = document.querySelector('#gastos ul');
+        //Creation of the list that will have the spendName and value
+        const listItem = document.createElement('li');
+        listItem.className = 'list-group-item d-flex justify-content-between align-items-center';
+        //Insertion of our values in our list
+        listItem.innerHTML = `
+            ${nameSpend}
+            <span class="badge badge-primary badge-pill">$ ${valueSpend}</span90090>
+        `;
+        //Insertion of our element in DOM
+        listContainer.appendChild(listItem);
+    }
+
+    //Method to insert the available budget due to the budgetSubtract method from Budget class
+    availableBudget(spendValue) {
+        //Container where the available budget will be set
+        const availableBudget = document.getElementById('restante');
+        //Variable that storage the return value from budgetSubtract method 
+        let updatedBudget = budget.budgetSubtract(spendValue);
+        //Insertion of the updatedBudget in DOM
+        availableBudget.innerHTML = `${updatedBudget}`;
+        //Call the budget method from this class
+        this.budgetStatus(updatedBudget);
+    }
+    //Method to change the background color from the remaining budget containner
+    budgetStatus(updatedBudget) {
+        const initialBudget = budget.presupuesto;
+        const budgetRemaining = updatedBudget;
+        //Budget remaining container
+        const budgetStatus = document.querySelector('.restante');
+
+        if(budgetRemaining <= (initialBudget * 0.25)) {
+            budgetStatus.classList.remove('alert-success', 'alert-warning');
+            budgetStatus.classList.add('alert-danger')
+        } else if(budgetRemaining <= (initialBudget * 0.50)) {
+            budgetStatus.classList.remove('alert-success');
+            budgetStatus.classList.add('alert-warning');
+        }
+    }
 }
 
 //Event Listeners
@@ -82,5 +125,7 @@ form.addEventListener('submit', function() {
         ui.formMessage('Error, completa los campos', 'error');
     } else {
         ui.formMessage('Envio exitoso', 'success');
+        ui.userSpendList(nameSpend, valueSpend);
+        ui.availableBudget(valueSpend);
     }
 });
