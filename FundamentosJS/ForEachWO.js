@@ -63,8 +63,8 @@
     const items = ['Widget', 'Gadget'];
     const cost = [9.95, 22.95];
 
-   /* 1.    const list = items.map((x, i) => ({name: x, price: cost[i]})); // returns [{name: 'Widget', price: 9.95}, {name: 'Gadget', price: 22.95}]
-   */
+        const list = items.map((x, i) => ({name: x, price: cost[i]})); // returns [{name: 'Widget', price: 9.95}, {name: 'Gadget', price: 22.95}]
+   
 
    /* 2.    const list = items.map(function(x, i){
             return ({name: x, price: cost[i]})

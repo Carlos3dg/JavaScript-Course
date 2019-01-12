@@ -19,7 +19,7 @@ ciudades.forEach(callback);
 const paises = ['Mexico', 'Canada', 'Inglaterra', 'Holanda', 'Alemania'];
 
 // Ad a new register in our database
-function nuevoPais(pais, mostrarPaises){
+function nuevoPais(pais, mostrarPaises){ //This function is called higherOrderFunction 
     //Here we use a setTimeout function so simulate that someone add a new register in the request process or after it.
     setTimeout(function() {
         paises.push(pais);
