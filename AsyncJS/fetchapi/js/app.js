@@ -1,33 +1,34 @@
+//Upload a text file
 document.getElementById('txtBtn').addEventListener('click', uploadTxt);
 
 function uploadTxt() {
-    fetch('https://drive.google.com/open?id=1_dK7Y8D3ufFjOIXTUPJj5ld8q7fdmSxG')
-        .then(function(response) {
-            if(response.ok) {
-                response.text().then(function(res) {
-                    console.log(res);
-                });
-            } else {
-                console.log('error en response ok.')
-            }
+    fetch('datos.txt')
+        .then(function(res) {
+            return res.text()
+        })
+        .then(function(data) {
+            document.getElementById('resultado').innerHTML = data;
         })
         .catch(function(error) {
-            console.log('Hubo un problema con la petición Fetch:' + error.message);
-        })
+            console.log(error);
+        });
 }
 
+//Upload a json file
+document.getElementById('jsonBtn').addEventListener('click', uploadJson);
 
-/*function uploadTxt() {
-    const xhr = new XMLHttpRequest();
+function uploadJson() {
+    fetch('empleados.json')
+        .then(function(res) {
+            return res.json();
+        }).then(function(data) {
+            let html = '';
+            data.forEach(function(empleado) {
+                html += `<li>${empleado.nombre} ${empleado.puesto}</li>`;
+            });
 
-    xhr.open('GET', 'datos.txt', true);
-
-    xhr.onload = function() {
-        if(xhr.status === 200) {
-            console.log(xhr.response);
-        }
-    }
-
-    xhr.send();
+            document.getElementById('resultado').innerHTML = html;
+        }).catch(function(error) {
+            console.log(error);
+        });
 }
-*/
