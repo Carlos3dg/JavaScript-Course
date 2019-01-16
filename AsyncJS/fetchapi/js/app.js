@@ -32,3 +32,27 @@ function uploadJson() {
             console.log(error);
         });
 }
+
+//Upload a RestAPI
+document.getElementById('apiBTN').addEventListener('click', uploadRest);
+
+function uploadRest() {
+    fetch('http://picsum.photos/list')
+        .then(function(res) {
+            return res.json();
+        }).then(function(result) {
+            let html = '';
+            result.forEach(function(imagen) {
+                html += `
+                    <li>
+                        <a target="_blank" href="${imagen.post_url}">Ver imagen</a>
+                        ${imagen.author}
+                    </li>
+                `;
+            });
+            document.getElementById('resultado').innerHTML = html;
+        })
+        .catch(function(error) {
+            console.log(error);
+        })
+}
