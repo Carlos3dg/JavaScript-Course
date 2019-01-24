@@ -134,3 +134,24 @@ console.log(bruce); // {name: 'Bruce', birthYear: 1949, occupation: 'singer'}
 update.apply(madeline, [1918, 'writer']); //to pass arguments values we pass them in one array, the value of this is the only one passing directly.
 console.log(madeline); //{name: 'Madeline', birthYear: 1918, occupation: 'writer'}
 
+//Bind:
+//Bind is a method that allow us to bound the this keyword of a function to a permantly value. When we use this method we create a new function with the same body but with the this value bound to the first argument of bind, one time we use this method this new function created can't be modify its this keyword.
+//We match the updateBruce variable to the update function but with the this keyword equal to bruce object
+const updateBruce = update.bind(bruce);
+//Then we call the function providing the two arguments that has its body
+updateBruce(1964, 'actor');
+
+console.log(bruce); //Now the bruce object is {name: 'bruce', birthYear: 1964, occupation: 'actor'}
+
+//If we want to call updateBruce function with the call method:
+updateBruce.call(madeline, 1274, 'king');
+console.log(bruce); // {name: 'bruce', birthYear: 1274, occupation: 'king'}
+//In this case the first argument try to provid the this value but this is rejected due to we already provided a value in the first bind method, the other two values are the arguments that has the body function and this are successfully changed in the object as we can observe.
+
+//It is possible to provide permanent arguments with the bind function, we just create our new function a in the bind method defined the this value follow by the argument value(s):
+const updateBruce1949 = update.bind(bruce, 1949);
+//We have assigned a permantly value to the birthYear property but we can still change the values of the occupation property:
+updateBruce1949('singer, songwriter');
+console.log(bruce); //{name: "Bruce", birthYear: 1949, occupation: "singer, songwriter"}
+
+
