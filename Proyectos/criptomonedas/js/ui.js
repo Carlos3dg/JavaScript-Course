@@ -7,7 +7,18 @@ class UI {
     designSelect() {
         //Call the loadApi method isinde the API class to get the json data
         api.loadApi()
-            .then(result => console.log(result));
+            .then(result => {
+                //Two variables: one to iterate the object keys from result.Data and other to get the select element.
+                let objKey;
+                const select = document.getElementById('criptomoneda');
+                //for... in to iterate the properties in the result.Data object
+                for(objKey in result.Data) {
+                    const option = document.createElement('option');
+                    option.value = objKey; //The key value from the object
+                    option.appendChild(document.createTextNode(result.Data[objKey].CoinName)) //That key has an object and inside that object we need the CoinName property to get the coin names.
+                    select.appendChild(option);
+                }
+            });
     }
 
     //Method to show an error or successfull message
@@ -25,5 +36,28 @@ class UI {
             divMessage.remove();
         }, 3000);
     }
-
+    //Method to design the quotation message
+    quotationMessage(result, coin, cryptoCoin) {
+        //Now that we have the 'RAW' property as an object, we need to acces to the crypto porperty where is the coin property to get the price and other data
+        const quotationData = result[cryptoCoin][coin];
+        console.log(quotationData);
+        //Use topFixed method to reduce the num of decimal nums in the price and the change porcentual from last day
+        const price = quotationData['PRICE'].toFixed(2);
+        const percentageChange = quotationData['CHANGEPCTDAY'].toFixed(2);
+        //Change data format to 'es-MX'
+        const lastUpdate = new Date(quotationData['LASTUPDATE'] * 1000).toLocaleDateString('es-MX');
+        //Create the element where is going to be the message:
+        const quotationMessage = `
+            <div class="card bg-warning">
+                <div class="card-body text-light">
+                    <h2 class="card-title">Result:</h2>
+                    <p>The crypto coin price of ${quotationData['FROMSYMBOL']} in ${quotationData['TOSYMBOL']} coin is $${price}</p>
+                    <p>Percentage change from last day: ${percentageChange}</p>
+                    <p>Last update: ${lastUpdate}</p>
+                </div>
+            </div>
+        `
+        //Get the element where is going to be our created element
+        document.querySelector('#resultado').innerHTML = quotationMessage;
+    }
 }

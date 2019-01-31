@@ -16,7 +16,13 @@ form.addEventListener('submit', (e) => {
 
     //Validate that all fields are completed
     if(selectedCoin !== '' && selectedCripto !== ''){
-        console.log('ok');
+        //Call loadDesireData() method with the selectedCoin and selectedCripto values as parameters
+        api.loadDesireData(selectedCoin, selectedCripto)
+        //Get the return value from the async function loadDesireData()
+            .then(result => {
+                //Call the quotationMessage method and pass it the result['RAM'] object as a parameter a the other two variables
+                ui.quotationMessage(result['RAW'], selectedCoin, selectedCripto);
+            }); 
     } else {
         //Call the ui instance to access to its methods
         ui.showMessage('Please select all the options in the form', 'alert bg-danger text-center') //Method to create a message

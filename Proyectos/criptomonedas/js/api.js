@@ -10,4 +10,13 @@ class API {
 
         return data;
     }
+    //Method to get data according with the user input
+    async loadDesireData(coin, criptoCoin) {
+        const URL = `https://min-api.cryptocompare.com/data/pricemultifull?fsyms=${criptoCoin}&tsyms=${coin}&api_key=${this.apikey}`;
+        const response = await fetch(URL);
+        const data = await response.json();
+
+        return data;
+    }
+
 }
