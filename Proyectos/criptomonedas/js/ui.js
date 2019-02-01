@@ -38,14 +38,19 @@ class UI {
     }
     //Method to design the quotation message
     quotationMessage(result, coin, cryptoCoin) {
+        //Detect if there's a quotation in DOM If true then remove it
+        const lastQuotation = document.querySelector('#resultado > div');
+        if(lastQuotation) {
+            lastQuotation.remove();
+        }
+
         //Now that we have the 'RAW' property as an object, we need to acces to the crypto porperty where is the coin property to get the price and other data
         const quotationData = result[cryptoCoin][coin];
-        console.log(quotationData);
         //Use topFixed method to reduce the num of decimal nums in the price and the change porcentual from last day
         const price = quotationData['PRICE'].toFixed(2);
         const percentageChange = quotationData['CHANGEPCTDAY'].toFixed(2);
         //Change data format to 'es-MX'
-        const lastUpdate = new Date(quotationData['LASTUPDATE'] * 1000).toLocaleDateString('es-MX');
+        let lastUpdate = new Date(quotationData['LASTUPDATE'] * 1000).toLocaleDateString('es-MX');
         //Create the element where is going to be the message:
         const quotationMessage = `
             <div class="card bg-warning">
@@ -56,8 +61,20 @@ class UI {
                     <p>Last update: ${lastUpdate}</p>
                 </div>
             </div>
-        `
-        //Get the element where is going to be our created element
-        document.querySelector('#resultado').innerHTML = quotationMessage;
+        `;
+        //Call the showAndHideSpinner method with the block value as a parameter to show it
+        this.showAndHideSpinner('block');
+
+        setTimeout(() => {
+            //Get the element where is going to be our created element
+            document.querySelector('#resultado').innerHTML = quotationMessage;
+            //Hide spinner
+            this.showAndHideSpinner('none');
+        }, 3000);
+    }
+    //Method to show and hide load spinner 
+    showAndHideSpinner(display) {
+        const spinner = document.querySelector('.contenido-spinner');
+        spinner.style.display = display;
     }
 }

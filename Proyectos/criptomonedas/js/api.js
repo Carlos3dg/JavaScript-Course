@@ -18,5 +18,4 @@ class API {
 
         return data;
     }
-
 }
