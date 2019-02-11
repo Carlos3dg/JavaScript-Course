@@ -83,3 +83,5 @@ carro1.shift('D');
 console.log(carro1._userGear); // D
 carro1._userGear = 'O'
 console.log(carro1._userGear); // O
+//One way to resolve this is using an instance of WeakMap, to see more about this topic go to page 152 on Learning javascript book
+
