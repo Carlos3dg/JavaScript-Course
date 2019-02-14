@@ -5,4 +5,4 @@ Topics are organized in folders, in most of the cases you will find an html file
 
 Every js file has some simple examples and good explanations as comments to understand the topic they target.
 
-Finally you will find a folder call Proyectos, where you will find some projects to get all the topics in this repo in practice.
+Finally you will find a folder call Proyectos, there you will find some projects to get all the topics in this repo in practice.
