@@ -7,7 +7,7 @@ leftEye.addEventListener("click", moveUpDown);
 leftArm.addEventListener("click", moveRightLeft);
 
 function moveUpDown(e){
-    var robotPart=e.target,
+    let robotPart=e.target,
         top = 0,
         id=setInterval(frame, 10);
     
