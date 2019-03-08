@@ -7,7 +7,7 @@ let maestro = {
     Facultad: 'Facultad de Ingeniería y Sistemas'
 }
 
-if (maestro.Matricula===matricula) {
+if (maestro.Matricula==matricula) {
     document.getElementById('maestro').innerHTML = maestro.Nombre;
     document.getElementById('matricula').innerHTML = maestro.Matricula;
     document.getElementById('facultad').innerHTML = maestro.Facultad;
