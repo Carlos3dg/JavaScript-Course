@@ -1,4 +1,4 @@
-var rightEye = document.getElementById('righteye');
+let rightEye = document.getElementById('righteye');
 var leftEye = document.getElementById('lefteye');
 let leftArm = document.getElementById('leftarm');
 
