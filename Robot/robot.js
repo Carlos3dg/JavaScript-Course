@@ -22,7 +22,7 @@ function moveUpDown(e){
 }
 
 function moveRightLeft(e) { 
-    var robotPart = e.target,
+    let robotPart = e.target,
         left = 0;
         id = setInterval(frame, 10);
 
